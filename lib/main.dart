@@ -40,7 +40,7 @@ class RootApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       title: "سوق الزاب",
-      home: const SplashScreen(),
+      home: SplashScreen(),
       routes: RoutePage.instance.routes,
     );
   }

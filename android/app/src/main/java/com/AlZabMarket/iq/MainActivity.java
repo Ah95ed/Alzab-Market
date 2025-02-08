@@ -1,4 +1,4 @@
-package com.AlZabMarket.iq.alzabmarket;
+package com.AlZabMarket.iq;
 
 import io.flutter.embedding.android.FlutterActivity;
 
