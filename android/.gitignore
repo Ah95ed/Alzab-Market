@@ -5,8 +5,12 @@ gradle-wrapper.jar
 /gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
+/android/gradle/wrapper/gradle-wrapper.properties
+/android/settings.gradle
+/android/app/build.gradle
 
 # Remember to never publicly share your keystore.
+# These files contain sensitive information
 # See https://flutter.dev/to/reference-keystore
 key.properties
 **/*.keystore
