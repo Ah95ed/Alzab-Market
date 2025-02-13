@@ -1,4 +1,4 @@
-import 'package:alzabmarket/Helper/Locale/LanguageController.dart';
+import 'package:alzabmarket/Helper/Language/Locale/LanguageController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences shpr;

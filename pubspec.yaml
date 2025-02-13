@@ -15,8 +15,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: 
-  shared_preferences: 
-  flutter_bloc:
+  shared_preferences:
+  provider: ^6.1.2
   
 
 

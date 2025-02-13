@@ -1,17 +1,29 @@
 import 'dart:async';
+import 'package:alzabmarket/Helper/Language/Locale/LanguageController.dart';
+import 'package:alzabmarket/Helper/Language/Words/Words.dart';
 import 'package:alzabmarket/Helper/Log/LogApp.dart';
 import 'package:alzabmarket/Helper/Service/onRunInit.dart';
+import 'package:alzabmarket/View/Pages/SplashScreen/SplashScreen.dart';
 import 'package:alzabmarket/View/route/Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await runZonedGuarded<Future<void>>(
     () async {
+      WidgetsFlutterBinding.ensureInitialized();
       await OnRunInit.instance.initApp();
+
       runApp(
-        RootApp(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => LanguageController(),
+            ),
+          ],
+          child: RootApp(),
+        ),
       );
     },
     (
@@ -28,33 +40,29 @@ class RootApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      theme: ThemeData(
-        fontFamily: 'Cairo',
-        primarySwatch: Colors.blue,
-      ),
-      title: "سوق الزاب",
-      home: SplashScreen(),
-      routes: RoutePage.instance.routes,
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Splash Screen'),
-      ),
+    return Consumer<LanguageController>(
+      builder: (context, value, child) {
+        return MaterialApp(
+          supportedLocales: value.supportLanguage,
+          localeResolutionCallback: (locale, supportedLocales) {
+            if (supportedLocales.contains(value.currentLocale)) {
+              return locale;
+            } else {
+              return supportedLocales.first;
+            }
+          },
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          debugShowCheckedModeBanner: false,
+          locale: value.currentLocale,
+          title: Lang[Words.appName],
+          initialRoute: '/',
+          routes: RoutePage.instance.routes,
+        );
+      },
     );
   }
 }
